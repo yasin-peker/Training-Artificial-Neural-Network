@@ -261,5 +261,217 @@ will give good results in different data types. In addition to these, the traini
 is less than all other models, and thanks to this model, which has a very high test accuracy value, I think 
 that I can achieve a good performance even with data that was not included in the training before.
 
+## Part4. Experimenting Activation Functions
+
+**Q1.** The mlp1_sigmoid neural network has a smaller training loss than the mlp1_relu neural 
+network, as can be seen by looking at the training losses. This shows that, at least in terms of 
+reducing the loss function, the mlp1_sigmoid network is able to learn the training data better than 
+the mlp1_relu network.
+
+Next, we can see that the mlp1_relu neural network has greater gradient magnitudes than the 
+mlp1_sigmoid network by comparing the gradient amplitudes. This is not unexpected given that, 
+especially when the input values are big, the ReLU activation function can generate gradients that are 
+more aggressive than those produced by the sigmoid function. The mlp1_sigmoid network, on the 
+other hand, seems to have a more consistent gradient behavior, with lower magnitudes that only 
+marginally rise over training. This could help prevent problems like gradient explosion or disappearance 
+and improve generalization performance on untested data.
+
+In conclusion, the choice of activation function may significantly affect a neural network's 
+training loss and gradient behavior. When it comes to lowering the loss and avoiding gradient problems, 
+sigmoid may do better than ReLU, which can result in greater gradients and possibly quicker learning.
+
+<img src="./Results-Part4/mlp1/part4Plots.png">
+
+The mlp2_sigmoid network once more has a lower training loss than the mlp2_relu network, 
+as can be seen by looking at the training losses. This shows that, at least in terms of reducing the loss 
+function, the mlp2_sigmoid network is able to learn the training data better than the mlp2_relu 
+network. As opposed to the previous example, the difference in training losses between the two 
+networks is greater here, pointing to a stronger benefit for sigmoid activation.
+
+The mlp2_relu neural network, when compared to the mlp2_sigmoid network, once more has 
+bigger gradient magnitudes, as can be seen by looking at the gradient magnitudes. In contrast to the 
+prior example, the magnitude difference between the two networks is smaller here, suggesting that 
+the ReLU activation function may not be as aggressive in generating gradients. Although the 
+magnitudes of the gradients are smaller and only marginally larger throughout training, the 
+mlp2_sigmoid network nevertheless displays a more consistent gradient behavior.
+
+To conclude, similar to the previous experiment, the results from this one also reveal that the 
+mlp2_sigmoid network performs better in terms of minimizing training loss and displaying a more 
+stable gradient behavior.
+
+<img src="./Results-Part4/mlp2/part4Plots.png">
+
+Next, we can see that the cnn_3_relu neural network has bigger gradient magnitudes than the 
+cnn_3_sigmoid network by comparing the gradient amplitudes. Although the gradient magnitudes in 
+the cnn_3_sigmoid network are quite tiny, this may indicate that the network is not picking up new 
+information as quickly as the cnn_3_relu network. The relatively small gradients in the cnn_3_Sigmoid 
+network might be slowing down learning, preventing the network from developing as quickly as it 
+could.
+
+In conclusion, this experiment's findings indicate that the cnn_3_sigmoid network performs 
+better than the cnn_3_relu network in minimizing training loss. The cnn_3_sigmoid network's 
+extremely modest gradient magnitudes, however, would suggest that the network is not learning as 
+well as it could.
+
+<img src="./Results-Part4/cnn_3/part4Plots.png">
+
+The cnn_4_relu network has a substantially smaller training loss than the cnn_4_sigmoid 
+network, as can be seen by looking at the training losses. In fact, the cnn_4_sigmoid network's training 
+loss stayed constant during training, which raises the possibility that the network is not learning at all.
+
+Next, we can see that the cnn_4_relu neural network has greater gradient magnitudes 
+compared to the cnn_4_sigmoid network by examining the gradient magnitudes. The cnn_4_sigmoid 
+network's gradient magnitudes are 0, which raises the possibility that the network's parameters aren't 
+changing at all while being trained.
+
+<img src="./Results-Part4/cnn_4/part4Plots.png">
+
+When we examine the training performance of the cnn_5 architecture, it can be obtained that 
+the gradient magnitude of the cnn_5_sigmoid is again zero and the training loss of the cnn_5_sigmoid 
+remained unchanged. It means that the cnn_5_sigmoid architecture is not learning the data.
+
+<img src="./Results-Part4/cnn_5/part4Plots.png">
+
+The vanishing gradient problem is a frequent problem in deep neural networks that can happen 
+when the gradient is very small (or zero) during backpropagation, which has the effect of giving the 
+weights in the network's initial layers very little training data updates. The network's overall 
+performance may suffer as a result of these early layers finding it challenging to acquire useful 
+representations.
+
+The vanishing gradient problem and neural network depth are closely related concepts. The 
+likelihood of running across a vanishing gradient problem rises as a neural network's depth increases. 
+This is because each layer might help to reduce the gradient's amplitude since the gradient is often 
+back propagated via several layers.
+
+In case of cnn_4_relu and cnn_5_relu architectures may have vanishing gradient problems as a 
+result of the rather deep nature of these networks. Although the vanishing gradient issue is generally 
+somewhat reduced by the ReLU activation function employed in these networks, it is still possible for 
+the gradients to become very small in the deeper layers. The cnn_4_sigmoid and cnn_5_sigmoid 
+networks' zero-gradient magnitudes indicate that the sigmoid activation function may be aggravating 
+the vanishing gradient issue in these networks.
+
+<img src="./Results-Part4/part4Plots.png">
+
+**Q2.** The activation functions used in the network are one of several potential causes of the 
+vanishing gradient problem. The gradients in the backpropagation process can become quite small as 
+they are multiplied by the derivatives of activation functions like sigmoid and hyperbolic tangent since 
+their derivatives are relatively small (between 0 and 1). As a result, as the gradients are back propagated 
+through the layers of the network, they may "vanish" or approach zero, which may make it challenging 
+for the earlier layers to acquire useful representations.
+
+The depth of the network is another aspect that may play a role in the vanishing gradient issue. 
+The issue of small gradients can be made worse as the network depth increases since more layers must 
+be passed through in order to backpropagate the gradients. It's important to remember that deep 
+networks can also experience the reverse issue, known as the expanding gradient problem. The 
+network can diverge during training when the gradients are very steep, which causes the weights in 
+the network to be changed by very large values.
+
+In conclusion, the activation functions' small derivatives and the network's depth together 
+might result in very small gradients as they are backpropagated through the layers, leading to the 
+vanishing gradient problem.
+
+**Q3.** Gradient scale: Compared to inputs in the [0.0, 1.0] range, inputs in the [0, 255] range can 
+cause backpropagation gradients to grow significantly. Due of the relatively huge gradients that can 
+result in excessively large weight updates and divergence, there may be problems with numerical 
+stability during training.
+
+Initialization of weights: To avoid saturating the activation functions, weights in neural networks 
+are often initialized with low values. If the input values are in the [0, 255] range, the initial weights must 
+be substantially less to account for the higher input values. If we utilize inputs in the range [0, 255], the 
+network may take longer to converge, or it may not converge at all. This is due to the gradients' 
+potential for instability, which can cause them to bounce between very large positive and negative 
+values and prevent the weights from settling into an ideal arrangement.
+
+Before feeding inputs into the neural network, they must first be normalized to the range [0.0, 
+1.0] if they are in the [0, 255] range. This involves an additional stage of preprocessing and may be 
+computationally expensive.
+
+## Part5. Experimenting Learning Rate
+
+**Q1.** A hyperparameter called learning rate controls how frequently the model's parameters are 
+changed during training. A higher learning rate often results in faster convergence since larger updates 
+to the parameters can cover more ground in fewer rounds. However, an excessive learning rate can 
+cause the updates to exceed the ideal values, which would eventually create instability and slower 
+convergence.
+
+The convergence speed, on the other hand, can be slowed down by a reduced learning rate 
+because smaller updates to the parameters require more iterations to reach the optimal values. A 
+slower learning rate, meanwhile, can also help the model avoid overshooting and instability.
+
+While using the scheduled learning rate technique, the convergence speed of the model is 
+increased up to 5 times because I also trained the same model with another optimizer called Adam and 
+I obtained almost the same results as it was in the scheduled learning rate method which shows that 
+the learning rate affects the convergence speed of the model. When it is too high, model can easily 
+converge since high learning rate results in high convergence speed. 
+
+**Q2.** The deep learning model's ability to converge to a better point can be significantly influenced 
+by the learning rate. A faster convergence to a better solution is facilitated by a higher learning rate, 
+which enables the model to make larger modifications to the parameters. However, an excessive 
+learning rate can cause the model to exceed the ideal solution, which will eventually create instability 
+and slower convergence.
+
+A reduced learning rate, on the other hand, results in smaller updates to the parameters, which 
+can delay the convergence to a better solution. On the other hand, a slower learning rate can eventually 
+aid the model in avoiding overshooting and converge to a more reliable and ideal result.
+
+In order to ensure that the model converges to a better point, the choice of learning rate is 
+crucial. Using strategies like learning rate schedules or adaptive learning rate methods like Adam or 
+RMSprop, it is frequently utilized to start with a greater learning rate and gradually decrease it over 
+time. With this method, the model is able to make larger updates early in the training process and 
+refine the parameters as it gets closer to a better point of convergence.
+
+**Q3.** The scheduled learning rate worked well while training the models. The main advantage of 
+using the scheduled learning rate is to obtain high accuracy rates while training the model with smaller 
+epoch. In other words, using scheduled learning rate is an efficient way to train the model. In deep 
+learning the scheduled learning rate technique is used to modify the learning rate while training. The 
+learning rate is a hyperparameter that controls how frequently a neural network's weights are updated. 
+While a low learning rate can make the training process take longer, a high learning rate can cause the 
+model to exceed the ideal weights. The learning rate is changed periodically throughout training by 
+using the scheduled learning rate in order to improve performance.
+
+The ability to avoid the model from becoming stuck in regional minima or plateaus is one 
+benefit of adopting a planned learning rate. The model can explore various areas of the loss surface and discover a better global minimum by reducing the learning rate as training advances. Additionally, by enabling the model to reach the ideal weights more quickly, planned learning rate might hasten the 
+training process. This is due to the fact that first large weight updates are made using a high learning 
+rate, which is then gradually decreased for more precise weight adjustments. A significant method for 
+enhancing the effectiveness and performance of machine learning models is planned learning rate.
+
+<img src="./Results-Part5/Training-0.1-0.01-0.001/part5Plots.png">
+
+<img src="./Results-Part5/Training-0.1-from-10to30/valid-sch-1-after10epoch.png">
+
+<img src="./Results-Part5/Training-0.1-from-10to30/valid-sch-1-after30epoch.png">
+
+<img src="./Results-Part5/Training-from-0.01-to-0.001/Ekran görüntüsü 2023-04-21 112141.png">
+
+### Comparison of the Test Results
+
+In part 3, the cnn_3 model is trained 15 epochs and 20 runs. Then, the best test accuracy of the model 
+is obtained as 58.92. Other test accuracies of the model were initially saved when the part 3 was being 
+executed but in part 3, it is asked for us to create a pickle file and store the followings:
+
+- 'name': string, indicating the user-defined name of the training.
+- 'loss_curve': list of floats, indicating the loss at each step
+- 'train_acc_curve': list of floats, indicating the training accuracy at each step
+- 'val_acc_curve': list of floats indicating the validation accuracy at each step
+- 'test_acc': float, indicating the best test accuracy
+- 'weights': 2-D float array, weights of the first hidden layer of the trained MLP
+
+In none of these above parameters, the test accuracy of all test procedure is saved. Only, the 
+best test accuracy of the model was saved which was clearly stated in part 3. That’s why, only the best 
+test accuracy of the model cnn_3 and the best test accuracy of the model cnn_3_sch_01 is compared. 
+Here are the best test accuracy results of these two models:
+
+- Best test accuracy of the cnn_3 model: 58.92
+- Best test accuracy of the model cnn_3_sch_01: 58.26
+
+The total difference between the cnn_3 and cnn_3_sch_01 model is about 0.66 which is a 
+negligibly small amount of difference. Especially, when we consider the training duration of these two 
+models, it is obvious that the cnn_3 model was trained almost 7.5 hours. On the other hand, the cnn_3_sch_01 model was trained almost 1.5 hour which is one-fifth of the cnn_3 model. So, the test accuracies of these two models are almost the same but the convergence performance of the model 
+cnn_3_sch_01 is superior the cnn_3 model. It can be concluded that when we use SGD optimizer and 
+use scheduled learning rate to improve performance of the SGD based training, the model will be more 
+efficient than the previous model which was using the Adam optimizer. In other words, to improve the 
+SGD based learning and to reach high accuracies, scheduled learning rate should be applied to the 
+models.
+
 
 
