@@ -69,4 +69,31 @@ as shallow networks and to make feature extraction of these networks better, dee
 can be used. Deep neural networks can be created by using multiple convolutional layers that are 
 stacked top on each other. In this way, more complex features can be extracted.
 
+## Part3. Experimenting ANN Architectures 
+
+### Case 1: Multi Layer Perceptron 1 (Mlp1)
+<img src="./Results-Part3/mlp1/part3Plots.png">
+<img src="./Results-Part3/mlp1/before_train_weights.png">
+<img src="./Results-Part3/mlp1/input_weights.png">
+
+### Case 2: Multi Layer Perceptron 2 (Mlp2)
+<img src="./Results-Part3/mlp2/part3Plots.png">
+<img src="./Results-Part3/mlp2/before_train_weights.png">
+<img src="./Results-Part3/mlp2/input_weights.png">
+
+### Case 3: Convolutional Neural Network 3 (CNN3)
+<img src="./Results-Part3/cnn_3/part3Plots.png">
+<img src="./Results-Part3/cnn_3/before_train_weights.png">
+<img src="./Results-Part3/cnn_3/input_weights.png">
+
+### Case 4: Convolutional Neural Network 4 (CNN4)
+<img src="./Results-Part3/cnn_4/part3_plots.png">
+<img src="./Results-Part3/cnn_4/before_train_weights.png">
+<img src="./Results-Part3/cnn_4/input_weights.png">
+
+### Case 5: Convolutional Neural Network 5 (CNN5)
+<img src="./Results-Part3/cnn_5/part3_plots.png">
+<img src="./Results-Part3/cnn_5/before_train_weights.png">
+<img src="./Results-Part3/cnn_5/input_weights.png">
+
 
